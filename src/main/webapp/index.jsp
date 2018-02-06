@@ -3,9 +3,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Usuario</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form method="POST" action="usuario/adicionar" enctype="multipart/form-data">
+            <input type="text" name="nome" required/><br>
+            <input type="text" name="senha" required/><br>
+            <input type="file" name="foto" accept="image/*" required><br>
+            <input type="submit" value="Cadastrar"/>
+        </form>
+        <hr>
+        <form method="POST" action="usuario/autenticar">
+            <input type="text" name="nome" required/><br>
+            <input type="text" name="senha" required/><br>
+            <input type="submit" value="Autenticar"/>
+        </form>
     </body>
 </html>

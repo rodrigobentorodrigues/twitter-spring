@@ -36,7 +36,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
                 usuario.setId(rs.getInt(1));
                 usuario.setNome(rs.getString("nome"));
                 usuario.setSenha(rs.getString("senha"));
-                usuario.setImagem(rs.getBytes("imagem"));
+                usuario.setCaminhoImagem(rs.getString("caminhoImagem"));
             }
             rs.close();
             stmt.close();
@@ -49,12 +49,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public boolean adicionar(Usuario usuario) {
         boolean cond = false;
-        String sql = "INSERT INTO usuario (nome, senha, imagem) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO usuario (nome, senha, caminhoImagem) VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getSenha());
-            stmt.setBytes(3, usuario.getImagem());
+            stmt.setString(3, usuario.getCaminhoImagem());
             cond = stmt.executeUpdate() > 0;
             stmt.close();
         } catch (SQLException ex) {

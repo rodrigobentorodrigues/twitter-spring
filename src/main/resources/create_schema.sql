@@ -2,7 +2,7 @@ CREATE TABLE usuario (
 	id serial primary key,
 	nome varchar(35) not null,
 	senha varchar(20) not null,
-	imagem bytea not null
+	caminhoImagem text not null
 );
 
 CREATE TABLE post (
