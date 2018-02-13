@@ -12,7 +12,6 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -30,8 +29,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext sc) throws ServletException {
+	createFolder();
         AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
         applicationContext.register(WebAppInitializer.class);
+        applicationContext.register(SpringConfig.class);
 
         sc.addListener(new ContextLoaderListener(applicationContext));
         ServletRegistration.Dynamic dispatcher = sc.addServlet("dispatcher", new DispatcherServlet(applicationContext));
@@ -41,8 +42,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(TMP_FOLDER,
                 MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2, MAX_UPLOAD_SIZE / 2);
 
-        dispatcher.setMultipartConfig(multipartConfigElement);
-        createFolder();
+        dispatcher.setMultipartConfig(multipartConfigElement);        
     }
 
     @Bean(name = "multipartResolver")

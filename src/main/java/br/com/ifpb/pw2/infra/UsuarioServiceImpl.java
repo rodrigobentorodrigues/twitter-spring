@@ -50,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             out.write(arquivo.getBytes());
             out.close();
             
-            usuario.setCaminhoImagem("/imagens/" + usuario.getNome() + "/" + arquivo.getOriginalFilename());            
+            usuario.setCaminhoImagem("imagens/" + usuario.getNome() + "/" + arquivo.getOriginalFilename());            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
