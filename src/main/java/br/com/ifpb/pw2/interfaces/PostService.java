@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  *
- * @author Rodrigo Bento
+ * @author rodrigobento
  */
-public interface PostDAO {
+public interface PostService {
     
     boolean cadastrar(Post post);
     List<Post> todosPosts(Usuario usuario);

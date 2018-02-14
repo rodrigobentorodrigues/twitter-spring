@@ -10,5 +10,7 @@ public interface UsuarioDAO {
  
     Usuario autentica(String nome, String senha);
     boolean adicionar(Usuario usuario);
+    Usuario buscaPorId(int id);
+    Usuario buscaPorNome(String nome);
     
 }

@@ -6,10 +6,19 @@ package br.com.ifpb.pw2.model;
  */
 public class Post {
 
+    private int id;
     private String mensagem;
     private Usuario usuario;
 
     public Post() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMensagem() {
@@ -30,7 +39,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "mensagem=" + mensagem + ", usuario=" + usuario + '}';
+        return "Post{" + "id=" + id + ", mensagem=" + mensagem + ", usuario=" + usuario + '}';
     }
     
 }

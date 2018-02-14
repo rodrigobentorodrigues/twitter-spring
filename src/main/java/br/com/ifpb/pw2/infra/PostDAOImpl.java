@@ -1,6 +1,7 @@
 package br.com.ifpb.pw2.infra;
 
 import br.com.ifpb.pw2.interfaces.PostDAO;
+import br.com.ifpb.pw2.interfaces.UsuarioService;
 import br.com.ifpb.pw2.model.Post;
 import br.com.ifpb.pw2.model.Usuario;
 import java.sql.Connection;
@@ -9,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +22,8 @@ public class PostDAOImpl implements PostDAO{
 
     @Autowired
     private Connection con;
+    @Autowired
+    private UsuarioService usuService;
     
     @Override
     public boolean cadastrar(Post post) {
@@ -41,15 +42,19 @@ public class PostDAOImpl implements PostDAO{
     }
 
     @Override
-    public List<String> todosPosts(Usuario usuario) {
+    public List<Post> todosPosts(Usuario usuario) {
         String sql = "SELECT * FROM post WHERE usuario_id = ?";
-        List<String> posts = new ArrayList<>();
+        List<Post> posts = new ArrayList<>();
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, usuario.getId());
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                posts.add(rs.getString("mensagem"));
+                Post post = new Post();
+                post.setMensagem(rs.getString("mensagem"));
+                post.setUsuario(usuario);
+                post.setId(rs.getInt("id"));
+                posts.add(post);
             }
             rs.close();
             stmt.close();
@@ -57,6 +62,29 @@ public class PostDAOImpl implements PostDAO{
             ex.printStackTrace();
         }
         return posts;
+    }
+
+    @Override
+    public Post buscaPorId(int id) {
+        Post post = null;
+        String sql = "SELECT * FROM post WHERE id = ?";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                Usuario aux = usuService.buscaPorId(rs.getInt("usuario_id"));
+                post = new Post();
+                post.setId(id);
+                post.setMensagem(rs.getString("mensagem"));
+                post.setUsuario(aux);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return post;
     }
     
 }

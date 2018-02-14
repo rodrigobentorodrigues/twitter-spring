@@ -56,4 +56,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
+    @Override
+    public Usuario buscaPorNome(String nome) {
+        return dao.buscaPorNome(nome);
+    }
+
+    @Override
+    public Usuario buscaPorId(int id) {
+        return dao.buscaPorId(id);
+    }
+
 }

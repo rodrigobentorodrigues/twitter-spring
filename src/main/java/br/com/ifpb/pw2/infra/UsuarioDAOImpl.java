@@ -63,4 +63,50 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return cond;
     }
 
+    @Override
+    public Usuario buscaPorId(int id) {
+        String sql = "SELECT * FROM usuario WHERE id = ?";
+        Usuario aux = null;
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                aux = new Usuario();
+                aux.setNome(rs.getString("nome"));
+                aux.setSenha(rs.getString("senha"));
+                aux.setCaminhoImagem(rs.getString("caminhoImagem"));
+                aux.setId(id);
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return aux;
+    }
+
+    @Override
+    public Usuario buscaPorNome(String nome) {
+        String sql = "SELECT * FROM usuario WHERE nome = ?";
+        Usuario aux = null;
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                aux = new Usuario();
+                aux.setId(rs.getInt("id"));
+                aux.setNome(rs.getString("nome"));
+                aux.setSenha(rs.getString("senha"));
+                aux.setCaminhoImagem(rs.getString("caminhoImagem"));
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return aux;
+    }
+
 }

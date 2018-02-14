@@ -11,5 +11,7 @@ public interface UsuarioService {
 
     Usuario autenticar(Usuario usuario);
     boolean adicionar(Usuario usuario, MultipartFile arquivo);
+    Usuario buscaPorNome(String nome);
+    Usuario buscaPorId(int id);
     
 }

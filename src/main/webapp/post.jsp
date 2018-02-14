@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Pagina Inicial</title>
+        <title>Post</title>
         <!-- Última versão CSS compilada e minificada -->
         <link rel="stylesheet" 
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
@@ -22,28 +22,18 @@
         crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="border: 1px solid black">
             <div class="col-md-12">
-                <h1>Twitter Spring</h1>
-                <hr>
-                <div class="col-md-6">
-                    <h3>Cadastrar</h3>
-                    <form method="POST" action="usuario/adicionar" enctype="multipart/form-data">
-                        Nome:<input class="form-control" type="text" name="nome" required/><br>
-                        Senha:<input class="form-control" type="password" name="senha" required/><br>
-                        Foto:<input class="form-control" type="file" name="foto" accept="image/*" required><br>
-                        <input class="btn btn-primary" type="submit" value="Cadastrar"/>
-                    </form>
+                <div class="col-md-4">
+                    <img style="margin:20px 60px;"
+                        width="150px" height="150px" src="../${usuarioAux.caminhoImagem}"/>
+                    <h4 style="text-align: center;">@${usuarioAux.nome}</h4>
                 </div>
-                <div class="col-md-6">
-                    <h3>Realizar Login</h3>
-                    <form method="POST" action="usuario/autenticar">
-                        Nome: <input class="form-control" type="text" name="nome" required/><br>
-                        Senha: <input class="form-control" type="password" name="senha" required/><br>
-                        <input class="btn btn-primary" type="submit" value="Autenticar"/>
-                    </form>
+                <div class="col-md-8" style="padding-top: 50px;">
+                    <h1 style="text-align: center;">${post.mensagem}</h1>
                 </div>
             </div>
+
         </div>
     </body>
 </html>
